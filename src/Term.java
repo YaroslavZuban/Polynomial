@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Term {
     private int coeff;
     private int degree;
@@ -39,6 +41,14 @@ public class Term {
         this.degree = degree;
     }
 
+    public Term diff() {
+        return new Term(coeff * degree, degree - 1);
+    }
+
+    public double calc(double x) {
+        return coeff * Math.pow(x, degree);
+    }
+
     @Override
     public String toString() {
         if (coeff == 0 || degree == 0) {
@@ -59,11 +69,16 @@ public class Term {
         }
     }
 
-    public Term diff() {
-        return new Term(coeff * degree, degree - 1);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Term term = (Term) o;
+        return coeff == term.coeff && degree == term.degree;
     }
 
-    public double calc(double x) {
-        return coeff * Math.pow(x, degree);
+    @Override
+    public int hashCode() {
+        return Objects.hash(coeff, degree);
     }
 }

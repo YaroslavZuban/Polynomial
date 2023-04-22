@@ -1,10 +1,9 @@
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 
-public class Poly {
-    private TreeMap<Integer, Term> polynomial;
-
+public class Poly extends BasePolynomial<Poly>{
     public Poly() {
         polynomial = new TreeMap<>();
     }
@@ -66,6 +65,19 @@ public class Poly {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BasePolynomial<?> that = (BasePolynomial<?>) o;
+        return Objects.equals(polynomial, that.polynomial);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(polynomial);
+    }
+
+    @Override
     public String toString() {
         if (polynomial.isEmpty()) {
             return "0";
@@ -122,7 +134,7 @@ public class Poly {
         return new Poly(resultPoly);
     }
 
-    public Poly subtract(Poly p) {
+    public Poly subtract(Poly p)  {
         TreeMap<Integer, Term> resultPoly = new TreeMap<>();
 
         for (Integer degree : polynomial.keySet()) {
@@ -178,6 +190,11 @@ public class Poly {
         return result;
     }
 
+    @Override
+    public void clear() {
+        polynomial=new TreeMap<>();
+    }
+
     public int degree() {
         int highestDegree = 0;
 
@@ -189,9 +206,24 @@ public class Poly {
 
         return highestDegree;
     }
+    public int coeff(int n) {
+        if (polynomial.containsKey(n)) {
+            return polynomial.get(n).getCoeff();
+        }
+        return 0;
+    }
 
-    public double leadingCoeff() {
-        return polynomial.get(degree()).getCoeff();
+    public Poly minus() {
+        Poly result = new Poly();
+        for (Map.Entry<Integer, Term> entry : polynomial.entrySet()) {
+            Term term = entry.getValue();
+            result.polynomial.put(term.getDegree(), new Term(-term.getCoeff(), term.getDegree()));
+        }
+        return result;
+    }
+
+    public Term getTerm(int i) {
+        return polynomial.get(polynomial.keySet().toArray()[i]);
     }
 
 }
