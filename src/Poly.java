@@ -165,23 +165,6 @@ public class Poly {
         return result;
     }
 
-    public Poly[] divide(Poly other) {
-        Poly quotient = new Poly();
-        Poly remainder = new Poly(polynomial);
-
-        while (remainder.degree() >= other.degree()) {
-            int divDegree = remainder.degree() - other.degree();
-            double divCoeff = remainder.leadingCoeff() / other.leadingCoeff();
-
-            Poly divPoly = new Poly(divCoeff + "x^" + divDegree);
-
-            quotient = quotient.add(divPoly);
-            remainder = remainder.subtract(other.multiply(divPoly));
-        }
-
-        return new Poly[]{quotient, remainder};
-    }
-
     public Poly differentiate() {
         Poly result = new Poly();
 
@@ -203,7 +186,7 @@ public class Poly {
                 highestDegree = degree;
             }
         }
-        
+
         return highestDegree;
     }
 
