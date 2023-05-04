@@ -17,6 +17,13 @@ public class Poly extends BasePolynomial<Poly>{
         workingPolynomials(polynomial.toLowerCase());
     }
 
+    /**
+     * Метод workingPolynomials получает на вход строковое представление
+     * многочлена и разбивает его на отдельные слагаемые.
+     * Далее каждое слагаемое преобразуется в объект класса Term с помощью метода parseTerm,
+     * и если объект Term не равен null, то добавляется в поле polynomial текущего объекта.
+     * @param polynomial
+     */
     private void workingPolynomials(String polynomial) {
         String[] terms = polynomial.split("(?=[-+])");
 
@@ -29,6 +36,10 @@ public class Poly extends BasePolynomial<Poly>{
         }
     }
 
+    /**
+     * Метод parseTerm преобразует строку, представляющую одно слагаемое многочлена,
+     * в объект класса Term, хранящий коэффициент и степень этого слагаемого.
+     */
     private Term parseTerm(String term) {
        // return new Term(term);
         int[] coeffDegree = new int[2];

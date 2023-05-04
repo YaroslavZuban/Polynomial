@@ -1,5 +1,10 @@
 import java.util.Objects;
 
+/***
+ * Код определяет класс Term для работы с многочленами, который имеет
+ * два свойства: coeff - коэффициент при степени x,
+ * и degree - степень x.
+ */
 public class Term {
     private int coeff;
     private int degree;
@@ -14,6 +19,10 @@ public class Term {
         this.degree = (int) degree;
     }
 
+    /**
+     * метод, возвращающий новый объект Term, у которого коэффициент равен произведению коэффициентов исходных
+     * объектов, а степень равна сумме степеней исходных объектов;
+     */
     public Term multiply(Term other) {
         double newCoeff = this.coeff * other.coeff;
         int newDegree = this.degree + other.degree;
@@ -25,26 +34,45 @@ public class Term {
         this.degree = degree;
     }
 
+    /**
+     * метод, возвращающий значение коэффициента;
+     */
     public int getCoeff() {
         return coeff;
     }
 
+    /**
+     * метод, возвращающий значение степени;
+
+     */
     public int getDegree() {
         return degree;
     }
 
+    /**
+     * метод, устанавливающий значение коэффициента;
+     */
     public void setCoeff(int coeff) {
         this.coeff = coeff;
     }
 
+    /**
+     * метод, устанавливающий значение степени;
+     */
     public void setDegree(int degree) {
         this.degree = degree;
     }
 
+    /**
+     * метод, возвращающий новый объект Term, который представляет собой производную исходного объекта;
+     */
     public Term diff() {
         return new Term(coeff * degree, degree - 1);
     }
 
+    /**
+     * метод, возвращающий результат вычисления значения многочлена в точке x
+     */
     public double calc(double x) {
         return coeff * Math.pow(x, degree);
     }

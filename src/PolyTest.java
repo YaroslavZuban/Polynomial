@@ -136,6 +136,15 @@ class PolyTest {
         numberOne = numberOne.multiply(numberTwo);
 
         assertEquals(expectedValue, numberOne.toString());
+
+        expectedValue = "1-x^2";
+        numberOne = new Poly("1+x");
+        numberTwo = new Poly("1-x");
+        numberOne = numberOne.multiply(numberTwo);
+
+        assertEquals(expectedValue, numberOne.toString());
+
+
     }
 
     @org.junit.jupiter.api.Test
